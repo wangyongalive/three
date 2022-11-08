@@ -39,6 +39,8 @@ render.render(scene, camera);
 
 // 控制器
 const controls = new OrbitControls(camera, render.domElement);
+// 设置控制器阻尼，让控制器更具有真实效果
+controls.enableDamping = true;
 
 // function animate(time) {
 //   let t = (time / 1000) % 5;
@@ -65,7 +67,7 @@ const controls = new OrbitControls(camera, render.domElement);
 //   // requestAnimationFrame 会传递一个时间参数 time
 //   requestAnimationFrame(animate);
 // }
-gsap.to(cube.position, {
+const gsap1 = gsap.to(cube.position, {
   x: 5,
   duration: 5,
   ease: "power1.inOut",
@@ -75,12 +77,35 @@ gsap.to(cube.position, {
   onStart: () => {
     console.log("动画开始！！");
   },
-  repeat: 2,
+  repeat: -1,
+});
+
+window.addEventListener("dblclick", () => {
+  if (gsap1.isActive()) {
+    gsap1.pause();
+  } else {
+    gsap1.resume();
+  }
 });
 
 function animate() {
   render.render(scene, camera);
+  controls.update();
   requestAnimationFrame(animate);
 }
 
 animate();
+
+// 监听画面变化
+window.addEventListener("resize", function () {
+  // 更新摄像头
+  camera.aspect = window.innerWidth / window.innerHeight;
+  // 更新投影矩阵
+  camera.updateProjectionMatrix();
+
+  // 更新渲染器
+  render.setSize(window.innerWidth, window.innerHeight);
+
+  // 设置渲染器像素比   电脑上的iphone是2
+  render.setPixelRatio(window.devicePixelRatio);
+});
