@@ -1,0 +1,22 @@
+{
+  "name": "01_base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "keywords": [],
+  "author": "json wang <jsonwang0102@163.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-clean-dist": "^0.0.6"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "gsap": "^3.11.3",
+    "three": "^0.146.0"
+  }
+}
