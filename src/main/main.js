@@ -17,16 +17,24 @@ camera.position.set(0, 0, 10);
 scene.add(camera);
 
 // 添加物体
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-const cubeMaterail = new THREE.MeshBasicMaterial();
-const cube = new THREE.Mesh(cubeGeometry, cubeMaterail);
+const geometry = new THREE.BufferGeometry();
+const vertices = new Float32Array([
+  -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
+  -1.0, -1.0, 1.0,
+]);
+// 设置属性 3个点为一组
+geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+const materail = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+// 根据几何体和材质创建物体
+const mesh = new THREE.Mesh(geometry, materail);
 // cube.position.set(5, 0, 0);
-cube.position.x = 0; // 设置物体位置
+mesh.position.x = 0; // 设置物体位置
 // cube.scale.set(2, 1, 1); // 设置缩放
-cube.scale.x = 2; // 设置缩放
-cube.rotation.set(Math.PI / 4, 0, 0); // 绕x轴旋转45度
-scene.add(cube);
+mesh.scale.x = 2; // 设置缩放
+mesh.rotation.set(Math.PI / 4, 0, 0); // 绕x轴旋转45度
+scene.add(mesh);
 
+console.log({ mesh });
 // 坐标轴辅助器
 const axesHelper = new THREE.AxesHelper(5);
 scene.add(axesHelper);
@@ -67,7 +75,7 @@ controls.enableDamping = true;
 //   // requestAnimationFrame 会传递一个时间参数 time
 //   requestAnimationFrame(animate);
 // }
-const gsap1 = gsap.to(cube.position, {
+const gsap1 = gsap.to(mesh.position, {
   x: 5,
   duration: 5,
   ease: "power1.inOut",
