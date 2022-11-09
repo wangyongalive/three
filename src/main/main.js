@@ -47,6 +47,7 @@ scene.add(axesHelper);
 // 渲染器
 const render = new THREE.WebGLRenderer();
 render.setSize(window.innerWidth, window.innerHeight);
+render.domElement.id = "canvas"; // 给canvas添加id
 document.body.appendChild(render.domElement);
 render.render(scene, camera);
 
