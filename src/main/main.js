@@ -14,31 +14,15 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0, 10);
 scene.add(camera);
 
-for (let i = 0; i < 50; i++) {
-  // 添加物体
-  const geometry = new THREE.BufferGeometry();
-  // 9 开辟缓冲区大小
-  const positionArray = new Float32Array(9);
-  // 三角形三个顶点 每个顶点三个点
-  for (let j = 0; j < 9; j++) {
-    // -5, 5
-    positionArray[j] = Math.random() * 10 - 5;
-  }
-  // 设置属性position 3个点为一组
-  geometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(positionArray, 3)
-  );
-  let color = new THREE.Color(Math.random(), Math.random(), Math.random());
-  const materail = new THREE.MeshBasicMaterial({
-    color: color,
-    transparent: true,
-    opacity: 0.5,
-  });
-  // 根据几何体和材质创建物体
-  const mesh = new THREE.Mesh(geometry, materail);
-  scene.add(mesh);
-}
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+
+// 基础材质
+const materail = new THREE.MeshBasicMaterial({
+  color: "#ffff00",
+});
+// 根据几何体和材质创建物体
+const mesh = new THREE.Mesh(cubeGeometry, materail);
+scene.add(mesh);
 
 // 坐标轴辅助器
 const axesHelper = new THREE.AxesHelper(5);
